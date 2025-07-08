@@ -64,10 +64,10 @@ class NeoFlappyBird {
             });
         });
         
-        // ゲーム開始
-        document.getElementById('startButton').addEventListener('click', () => {
-            this.startGame();
-        });
+            // ゲーム開始
+    document.getElementById('startButton').addEventListener('click', () => {
+        this.startGame();
+    });
         
         // リスタート
         document.getElementById('restartButton').addEventListener('click', () => {
@@ -123,7 +123,8 @@ class NeoFlappyBird {
         this.resetGame();
         this.gameState = 'playing';
         this.showGameUI();
-        this.gameLoop();
+        this.lastTime = performance.now();
+        this.gameLoop(performance.now());
     }
     
     pauseGame() {
@@ -134,7 +135,8 @@ class NeoFlappyBird {
     resumeGame() {
         this.gameState = 'playing';
         this.hidePauseScreen();
-        this.gameLoop();
+        this.lastTime = performance.now();
+        this.gameLoop(performance.now());
     }
     
     showMenu() {
