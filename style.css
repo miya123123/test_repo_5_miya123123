@@ -1,0 +1,276 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Orbitron', monospace;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    color: white;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#gameContainer {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#gameCanvas {
+    border: 2px solid #00ffff;
+    border-radius: 10px;
+    box-shadow: 
+        0 0 20px #00ffff,
+        0 0 40px #00ffff,
+        inset 0 0 20px rgba(0, 255, 255, 0.1);
+    background: linear-gradient(180deg, #87ceeb 0%, #98fb98 100%);
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
+}
+
+.game-title {
+    font-size: 4rem;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 2rem;
+    background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+    animation: titlePulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes titlePulse {
+    0% { transform: scale(1); filter: brightness(1); }
+    100% { transform: scale(1.05); filter: brightness(1.2); }
+}
+
+.bird-selection {
+    margin-bottom: 2rem;
+}
+
+.bird-selection h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #00ffff;
+    font-size: 1.5rem;
+}
+
+.bird-options {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.bird-option {
+    padding: 1rem 1.5rem;
+    border: 2px solid #00ffff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: rgba(0, 255, 255, 0.1);
+    font-size: 1.1rem;
+    min-width: 120px;
+    text-align: center;
+}
+
+.bird-option:hover {
+    background: rgba(0, 255, 255, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+}
+
+.bird-option.selected {
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+    color: black;
+    font-weight: bold;
+    transform: scale(1.1);
+}
+
+.game-button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+    color: black;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.game-button:hover {
+    transform: scale(1.1);
+    box-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.5),
+        0 0 40px rgba(255, 0, 255, 0.3);
+    filter: brightness(1.2);
+}
+
+.game-button:active {
+    transform: scale(0.95);
+}
+
+.instructions {
+    text-align: center;
+    margin-top: 2rem;
+    color: #aaa;
+}
+
+.instructions p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+}
+
+#gameUI {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+#score {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 3rem;
+    font-weight: 900;
+    color: white;
+    text-shadow: 
+        0 0 10px rgba(0, 255, 255, 0.8),
+        2px 2px 0 #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000;
+    z-index: 15;
+}
+
+#powerUpIndicator {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 2px solid #ffff00;
+    box-shadow: 0 0 20px rgba(255, 255, 0, 0.5);
+}
+
+#powerUpText {
+    font-size: 1.2rem;
+    color: #ffff00;
+    font-weight: bold;
+}
+
+#powerUpTimer {
+    width: 100px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+#powerUpTimer::after {
+    content: '';
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #ffff00, #ff8800);
+    border-radius: 2px;
+    transition: width 0.1s linear;
+    width: var(--timer-width, 100%);
+}
+
+@media (max-width: 768px) {
+    .game-title {
+        font-size: 2.5rem;
+    }
+    
+    .bird-options {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .bird-option {
+        min-width: 200px;
+    }
+    
+    .game-button {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+    }
+}
+
+/* パーティクル効果用のクラス */
+.particle {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    animation: particleFloat 2s ease-out forwards;
+}
+
+@keyframes particleFloat {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0) translateY(-100px);
+    }
+}
+
+/* ローディングアニメーション */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #00ffff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

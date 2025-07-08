@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo Flappy Bird - 斬新なフラッピーバード</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        
+        <div id="startScreen" class="screen">
+            <h1 class="game-title">Neo Flappy Bird</h1>
+            <div class="bird-selection">
+                <h3>バードを選択</h3>
+                <div class="bird-options">
+                    <div class="bird-option" data-bird="classic">🐦 クラシック</div>
+                    <div class="bird-option" data-bird="fire">🔥 ファイア</div>
+                    <div class="bird-option" data-bird="ice">❄️ アイス</div>
+                    <div class="bird-option" data-bird="electric">⚡ エレクトリック</div>
+                </div>
+            </div>
+            <button id="startButton" class="game-button">ゲーム開始</button>
+            <div class="instructions">
+                <p>スペースキーまたはクリックでジャンプ</p>
+                <p>パワーアップアイテムを集めよう！</p>
+            </div>
+        </div>
+
+        <div id="gameOverScreen" class="screen hidden">
+            <h2>ゲームオーバー</h2>
+            <p id="finalScore">スコア: 0</p>
+            <p id="bestScore">ベストスコア: 0</p>
+            <button id="restartButton" class="game-button">もう一度</button>
+            <button id="backToMenuButton" class="game-button">メニューに戻る</button>
+        </div>
+
+        <div id="gameUI" class="hidden">
+            <div id="score">0</div>
+            <div id="powerUpIndicator" class="hidden">
+                <span id="powerUpText"></span>
+                <div id="powerUpTimer"></div>
+            </div>
+        </div>
+
+        <div id="pauseScreen" class="screen hidden">
+            <h2>一時停止</h2>
+            <button id="resumeButton" class="game-button">再開</button>
+            <button id="pauseMenuButton" class="game-button">メニューに戻る</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
